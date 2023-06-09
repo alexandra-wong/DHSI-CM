@@ -11,4 +11,4 @@ Over the week we have done:
 6. [Tracery bots](https://botsin.space/@awong)
 7. [Scalar](https://scalar.usc.edu/works/critical-making-5/index)
 8. [P5 Poetics](https://alexandra-wong.github.io/DHSI-CM/haikuOnClick.html)
-9. Bitsy
+9. [Bitsy](https://alexandra-wong.github.io/DHSI-CM/plzLikeMe.html)
