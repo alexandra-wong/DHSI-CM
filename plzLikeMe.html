@@ -6,10 +6,16 @@
 
 <meta charset="UTF-8">
 
-<title>PLZ LIKE ME! </title>
+<title>"""
+{coffee =  =  = 0}
+PLZ LIKE ME! 
+"""</title>
 
 <script type="text/bitsyGameData" id="exportedGameData">
+"""
+{coffee =  =  = 0}
 PLZ LIKE ME! 
+"""
 
 # BITSY VERSION 8.4
 
@@ -27,7 +33,7 @@ NAME blueprint
 
 ROOM 0
 0,a,a,a,0,a,0,0,0,a,a,a,0,0,0,0
-0,a,0,b,0,a,0,0,0,0,0,a,0,0,0,0
+0,a,0,b,0,a,0,0,0,0,0,a,0,0,c,0
 0,a,a,a,0,a,0,0,0,0,a,0,0,0,0,0
 0,a,0,0,0,a,a,a,0,a,a,a,0,0,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -44,7 +50,7 @@ ROOM 0
 0,a,0,0,0,a,0,a,a,a,0,0,a,0,0,0
 NAME Room 1
 ITM 1 2,1
-EXT 14,14 1 13,13 DLG 3
+EXT 14,1 1 0,1 DLG 9
 PAL 0
 TUNE 2
 
@@ -54,14 +60,14 @@ ROOM 1
 0,a,0,a,0,a,0,a,0,0,0,a,0,a,0,0
 0,a,a,a,0,a,0,a,0,0,0,a,a,a,0,0
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0,a,0,a,0,0,a,0,0,a,a,a,0,a,a,a
+0,a,0,a,0,0,d,0,0,a,a,a,0,a,a,a
 0,a,0,a,0,a,0,a,0,0,a,0,0,a,0,0
 0,a,a,a,0,a,a,a,0,0,a,0,0,a,a,0
 0,a,0,a,0,a,0,a,0,0,a,0,0,a,0,0
 0,a,0,a,0,a,0,a,0,0,a,0,0,a,a,a
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 0,a,a,a,0,a,0,a,0,a,0,a,a,a,0,0
-0,0,a,0,0,a,0,a,0,a,0,a,0,0,0,0
+0,0,a,0,0,a,0,a,0,a,0,a,0,0,0,c
 0,0,a,0,0,a,a,a,0,a,0,a,a,a,0,0
 0,0,a,0,0,a,0,a,0,a,0,0,0,a,0,0
 0,0,a,0,0,a,0,a,0,a,0,a,a,a,0,0
@@ -110,6 +116,28 @@ TIL b
 01111111
 01111111
 01111111
+NAME NotWall
+
+TIL c
+01111110
+01111110
+01000010
+01000010
+01001010
+01000010
+01000010
+01111110
+NAME Door
+
+TIL d
+00000000
+11111111
+11111111
+11111111
+11111111
+11111111
+11111111
+11111111
 
 SPR A
 00011000
@@ -150,8 +178,30 @@ SPR a
 00100110
 00110000
 NAME Grumps
-DLG 0
+DLG 6
 POS 0 14,14
+
+SPR b
+00011000
+00011000
+00111100
+01111110
+10111101
+01100110
+00100100
+00110110
+>
+00011000
+00011000
+00111100
+01111110
+10111101
+01100110
+00100110
+00110000
+NAME Grumps2
+DLG a
+POS 1 12,14
 
 ITM 0
 00000000
@@ -175,7 +225,7 @@ ITM 1
 00000000
 00000000
 NAME coffee
-DLG 2
+DLG 7
 BLIP 2
 
 ITM 2
@@ -190,53 +240,70 @@ ITM 2
 NAME heart
 DLG 5
 
-DLG 0
-"""
-{
-  - metGrumps >= 1 ?
-
-  - else ?
-    {grumps = grumps + 1}
-}{
-  - grumps == 1 ?
-    {tempString = ": You want me to like you? Maybe I would if you gave me a gift..."}
-  - else ?
-    {tempString = ": NO. I hate coffee."}
-}Grumps{say tempString}
-"""
-NAME Grumps dialog
-
 DLG 1
-"""
-{coffee = 1}
-You found the gift!
-"""
+You found the coffee!
 NAME Coffee dialog
 
-DLG 2
-Maybe you will like me if I gift you a coffee?
-NAME key dialog
-
-DLG 3
-"""
-{
-  - {item "1"} >= 1 ?
-    {property locked false}The key opens the door!
-  - else ?
-    {property locked true}The door is locked...
-}
-"""
-NAME locked exit 1
-
 DLG 4
-Maybe you will like me because of this fancy present?
+{present = 1}Maybe you will like me because of this fancy present?
 NAME present dialog
 
 DLG 5
 Here's my heart!
 NAME heart dialog
 
-VAR metGrumps
+DLG 6
+"""
+{
+  - coffee == 1 ?
+     {tempString = ": NO. I hate coffee."}
+     {coffeeGifted = 1}
+  - else ?
+     {tempString = ": You want me to like you? Maybe I would if you gave me a gift..."}
+}
+Grumps{say tempString}
+
+
+"""
+NAME Grumps dialog 1
+
+DLG 7
+{coffee = coffee + 1}Maybe you will like me if I give you coffee?
+NAME coffee dialog
+
+DLG 8
+ 
+
+DLG 9
+"""
+{
+  - {coffeeGifted = 1} ?
+    {property locked false}Maybe they'll like me more if I give them a better gift?
+  - else ?
+    {property locked true}Maybe I need to talk to talk to them first...
+}
+"""
+NAME locked exit 1
+
+DLG a
+"""
+ {
+  - present == 1 ?
+     {tempString2 = ": Urgh this gift is so mid."}
+     {presentGifted = 1}
+  - else ?
+     {tempString2 = ": So you really want me to like you, huh? Maybe I would if you gave me another gift..."}
+}
+Grumps{say tempString2}
+
+
+"""
+NAME Grumps2 dialog
+
+VAR coffeeGifted
+0
+
+VAR presentGifted
 0
 
 TUNE 1
